@@ -7,12 +7,22 @@ public class Curso {
     private int id_curso;
     private int codigo;
     private String nombre;
+    private Alumno[] alumno;
+
+    public Alumno[] getAlumno() {
+        return alumno;
+    }
+
+    public void setAlumno(Alumno[] alumno) {
+        this.alumno = alumno;
+    }
 
     public Curso(int id_curso, int codigo, String nombre) {
         this.id_curso = id_curso;
         this.codigo = codigo;
         this.nombre = nombre;
     }
+
 
     public void setId_curso(int id_curso) {
         this.id_curso = id_curso;

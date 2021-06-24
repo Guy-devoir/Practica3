@@ -6,35 +6,30 @@ package practica3;
  */
 public class Alumno {
     //id del alumno
-    private int id_alumno;
-    private String raw_id;
+    private int id_alumno;    
     //Carnet
-    private int carnet;
-    private String raw_carnet;
-    private String nombre;
-    
-    private String raw_gender;
+    private int carnet;    
+    private String nombre;        
     //El boolean genero no representá el género pero sí si el genero es aceptado por el programa.
     private boolean genero;
     //Split para las graficas no para el constructor.
     private int[] birthday;
-    private String raw_birthday;
-    private boolean removeElement;
+    private String raw_birthday;    
     //nota a asignar, poner cero cuando se cargue
     private double nota;
-
+    
+    
     public Alumno() {
 
     }
 
-    public Alumno(String raw_id, String raw_carnet, String nombre, String raw_gender, String raw_birthday, double nota, boolean removeElement) {
-        this.raw_id = raw_id;
-        this.raw_carnet = raw_carnet;
+    public Alumno(int id_alumno, int carnet, String nombre, boolean genero, String raw_birthday, double nota) {
+        this.id_alumno = id_alumno;
+        this.carnet = carnet;
         this.nombre = nombre;
-        this.raw_gender = raw_gender;
+        this.genero = genero;
         this.raw_birthday = raw_birthday;
         this.nota = nota;
-        this.removeElement = removeElement;
     }
 
     //Dividir el cumpleaños, espcialmente util para obtener el año de nacido
@@ -44,56 +39,18 @@ public class Alumno {
         birthday[1] = Integer.valueOf(aux[1]);
         birthday[2] = Integer.valueOf(aux[2]);
     }
-    //comprobar que es un valor valido
-    public void setGenero() {
-        if ((raw_gender.equals("M")) || (raw_gender.equals("F"))) {
-            genero = true;
-            removeElement = false;
-        } else {
-            genero = false;
-            removeElement = true;
-        }
-    }
-
-    public void convertId() {
-        try {
-           id_alumno = Integer.valueOf(raw_id);
-        } catch (Exception e) {
-            removeElement = false;
-        }
-
-    }
-
-    
-    //Este es importante para eliminar
-    public boolean isRemoveElement() {
-        return removeElement;
-    }
-    
-
+   
     //Metodos usuales de getters y setters
     public int getId_alumno() {
         return id_alumno;
-    }
-
-    public String getRaw_id() {
-        return raw_id;
     }
 
     public int getCarnet() {
         return carnet;
     }
 
-    public String getRaw_carnet() {
-        return raw_carnet;
-    }
-
     public String getNombre() {
         return nombre;
-    }
-
-    public String getRaw_gender() {
-        return raw_gender;
     }
 
     public boolean isGenero() {
@@ -112,20 +69,8 @@ public class Alumno {
         return nota;
     }
 
-    public void setRaw_id(String raw_id) {
-        this.raw_id = raw_id;
-    }
-
-    public void setRaw_carnet(String raw_carnet) {
-        this.raw_carnet = raw_carnet;
-    }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public void setRaw_gender(String raw_gender) {
-        this.raw_gender = raw_gender;
     }
 
     public void setRaw_birthday(String raw_birthday) {
@@ -136,5 +81,8 @@ public class Alumno {
         this.nota = nota;
     }
 
-    
+    public int getAge(){
+    int edad = 2021-birthday[2];
+    return edad;
+    }
 }
