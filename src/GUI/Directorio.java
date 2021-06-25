@@ -15,11 +15,12 @@ import practica3.*;
 
 public class Directorio implements ActionListener {
 
-    private Alumno[] alumnos;
-    private Curso[] cursos;
+    public static Alumno[] alumnos;
+    public static Curso[] cursos;
     String directorio;
     JTextField text;
     JFrame frame;
+    String[][] stringObject;
 
     public Directorio() {
         frame = new JFrame();

@@ -1,32 +1,36 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package practica3;
 
+import org.jfree.chart.ChartFactory;   
+import org.jfree.chart.ChartPanel;   
+import org.jfree.chart.JFreeChart;   
+import org.jfree.chart.axis.ValueAxis;   
+import org.jfree.chart.plot.XYPlot;   
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.time.Millisecond;   
+import org.jfree.data.time.TimeSeries;   
+import org.jfree.data.time.TimeSeriesCollection;
 import GUI.Directorio;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
  * @author Luciano Xiquín
  */
-    
-import org.jfree.chart.ChartFactory;   
-import org.jfree.chart.ChartPanel;   
-import org.jfree.chart.JFreeChart;   
-import org.jfree.chart.axis.ValueAxis;   
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.XYPlot;   
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.data.time.Millisecond;   
-import org.jfree.data.time.TimeSeries;   
-import org.jfree.data.time.TimeSeriesCollection;   
-   
-public class QuickSort extends ChartPanel implements Runnable{ 
+       
+public class BubbleSort extends ChartPanel implements Runnable{ 
     private static TimeSeries timeSeries;   
     private long value=0;
     static DefaultCategoryDataset dataset;
     private static JFreeChart _grafico;
        
-    public QuickSort(DefaultCategoryDataset chartContent,String title)   
+    public BubbleSort(DefaultCategoryDataset chartContent,String title)   
     {   
         super(createChart(chartContent,title));   
     }   
@@ -53,3 +57,4 @@ public class QuickSort extends ChartPanel implements Runnable{
         return (long) (Math.random() * 20 + 80);
     }
 }
+

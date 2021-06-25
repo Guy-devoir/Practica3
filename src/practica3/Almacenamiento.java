@@ -13,11 +13,7 @@ public class Almacenamiento {
         this.arregloCurso = arregloCurso;
     }
     
-    public void bondTogether(Asignado[] asignacion){
-    //sdfdfs
-    if(arregloCurso.length == 2){
-    
-    }
+    public void bondTogether(Asignado[] asignacion){   
     }
 
     public Alumno[] getArregloAlumno() {

@@ -13,7 +13,7 @@ public class Alumno {
     //El boolean genero no representá el género pero sí si el genero es aceptado por el programa.
     private boolean genero;
     //Split para las graficas no para el constructor.
-    private int[] birthday;
+    private int[] birthday = new int[3];
     private String raw_birthday;    
     //nota a asignar, poner cero cuando se cargue
     private double nota;
@@ -34,7 +34,7 @@ public class Alumno {
 
     //Dividir el cumpleaños, espcialmente util para obtener el año de nacido
     public void splitBirthday() {
-        String[] aux = raw_birthday.split("/", 3);
+        String[] aux = raw_birthday.split("/");
         birthday[0] = Integer.valueOf(aux[0]);
         birthday[1] = Integer.valueOf(aux[1]);
         birthday[2] = Integer.valueOf(aux[2]);
@@ -81,8 +81,9 @@ public class Alumno {
         this.nota = nota;
     }
 
-    public int getAge(){
-    int edad = 2021-birthday[2];
-    return edad;
+    public int getAge() {
+        splitBirthday();
+        int edad = 2021 - birthday[2];
+        return edad;
     }
 }
