@@ -26,31 +26,44 @@ public class Chart extends JFrame implements ActionListener{
     private DefaultPieDataset _dataPie;
     private DefaultCategoryDataset _datos;
     
-    private Alumno[] alumnos = new Alumno[6];
+    private Alumno[] alumnos = new Alumno[7];
     private Curso[] cursos;
+    int[] datosHilos = null;
     
     public Chart(Alumno[] alumnos, Curso[] cursos) {
         /*
         this.storage = new Almacenamiento(alumnos,cursos);
         this.alumnos =  storage.getArregloAlumno();
         */
-        this.alumnos[0] = new Alumno(1, 201800632,"Luciano", true, "02/14/2021", 50);
-        this.alumnos[1] = new Alumno(1, 201800612,"Nora", false, "02/14/1920", 50);
-        this.alumnos[2] = new Alumno(1, 201800642,"Tora", true, "02/14/1930", 50);
+        this.alumnos[0] = new Alumno(1, 201800632,"Luciano", true, "02/14/2021", 60);
+        this.alumnos[1] = new Alumno(1, 201800612,"Nora", false, "02/14/1920", 100);
+        this.alumnos[2] = new Alumno(1, 201800642,"Tora", true, "02/14/1930", 90);
         this.alumnos[3] = new Alumno(1, 201800652,"Dora", false, "02/14/1950", 50);
-        this.alumnos[4] = new Alumno(1, 201800642,"Tora", true, "02/14/1950", 50);
-        this.alumnos[5] = new Alumno(1, 201800652,"Dora", false, "02/14/1980", 50);
+        this.alumnos[4] = new Alumno(1, 201800642,"Tora", true, "02/14/1950", 30);
+        this.alumnos[5] = new Alumno(1, 201800652,"Dora", false, "02/14/1980", 10);
+        this.alumnos[6] = new Alumno(1, 201800652,"Dora", false, "02/14/1980", 10);
         System.out.println(this.alumnos[0].getAge());
         this.cursos = cursos;
-        setSize(300, 450);
+        setSize(200, 550);
         JPanel panel = new JPanel();
-        setResizable(true);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
-        panel.setLayout(new GridLayout(10, 1, 5, 5));
-        panel.setBackground(Color.red);
+        panel.setLayout(new GridLayout(16, 1, 5, 5));
+        panel.setBackground(Color.lightGray);
         panel.setBounds(30, 20, 20, 210);
         panel.setSize(100,100);
+        
+        JLabel curso = new JLabel("Curso");
+        JComboBox<String> opciones;
+        opciones = new JComboBox<>();
+        
+        JLabel sortOrder = new JLabel("Orden de las barras");
+        JRadioButton o1 = new JRadioButton("Lento");
+        JRadioButton o2 = new JRadioButton("Medio");
+        ButtonGroup O = new ButtonGroup();
+        O.add(o1);
+        O.add(o2);
         
         JLabel graphType = new JLabel("Velocidad:");
         JRadioButton j1 = new JRadioButton("Lento");
@@ -87,20 +100,26 @@ public class Chart extends JFrame implements ActionListener{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    
                     System.out.println(b1.isSelected() + "" + b2.isSelected());
                     if (b1.isSelected()) {
                         _datos = setEdades();
-                        System.out.println(b1.isSelected());
+                        
                     }
                     if (b2.isSelected()) {
                         _datos = setEdades();
                     }
+                    //Esto tendra que ir adentro del if
                     _grafico = ChartFactory.createBarChart("DISTRIBUCIÓN DE EDADES", "EDADES", "# DE ALUMNOS", _datos, PlotOrientation.VERTICAL, false, false, false);
                     ChartPanel gPanel = new ChartPanel(_grafico);
-                    QuickSort Qs = new QuickSort(_datos, "DISTRIBUCIÓN DE EDADES");
+                    QuickSort Qs = new QuickSort(_datos, "DISTRIBUCIÓN DE EDADES",datosHilos);
+                    System.out.println("Test1");
                     (new Thread(Qs)).start();
+                    System.out.println("Test2");
                     JFrame newFrame = new JFrame();
+                    System.out.println("Test3");
                     newFrame.add(Qs);
+                    System.out.println("Test4");
                     newFrame.getContentPane().add(Qs);
                     newFrame.pack();
                     newFrame.setVisible(true);
@@ -131,20 +150,50 @@ public class Chart extends JFrame implements ActionListener{
             }               
         });
         
+        
+        
         JButton gradesChart;
-        gradesChart = new JButton( new AbstractAction("Grafica notas"){
+        gradesChart = new JButton( new AbstractAction("Grafica edades") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                _dataPie = crearDatos();
-                _grafico = ChartFactory.createPieChart("Distribución de generos", _dataPie, true, false, false);
-                ChartPanel cPanel = new ChartPanel(_grafico);
-                JFrame newFrame = new JFrame();
-                newFrame.getContentPane().add(cPanel);
-                newFrame.pack();
-                newFrame.setVisible(true);
-            }            
+                try {
+                    
+                    System.out.println(b1.isSelected() + "" + b2.isSelected());
+                    if (b1.isSelected()) {
+                        _datos = setNotas();
+                        
+                    }
+                    if (b2.isSelected()) {
+                        _datos = setNotas();
+                    }
+                    //Esto tendra que ir adentro del if
+                    _grafico = ChartFactory.createBarChart("DISTRIBUCIÓN DE EDADES", "EDADES", "# DE ALUMNOS", _datos, PlotOrientation.VERTICAL, false, false, false);
+                    ChartPanel gPanel = new ChartPanel(_grafico);
+                    QuickSort Qs = new QuickSort(_datos, "DISTRIBUCIÓN DE EDADES",datosHilos);
+                    System.out.println("Test1");
+                    (new Thread(Qs)).start();
+                    System.out.println("Test2");
+                    JFrame newFrame = new JFrame();
+                    System.out.println("Test3");
+                    newFrame.add(Qs);
+                    System.out.println("Test4");
+                    newFrame.getContentPane().add(Qs);
+                    newFrame.pack();
+                    newFrame.setVisible(true);
+                    newFrame.addWindowListener(new WindowAdapter() {
+                        public void windowClosing(WindowEvent windowevent) {
+                            System.exit(0);
+                        } });   
+
+                } catch (HeadlessException excep) {
+                }
+            }                           
         });
-        
+        panel.add(curso);
+        panel.add(opciones);
+        panel.add(sortOrder);
+        panel.add(o1);
+        panel.add(o2);
         panel.add(graphType);
         panel.add(j1);
         panel.add(j2);
@@ -154,6 +203,7 @@ public class Chart extends JFrame implements ActionListener{
         panel.add(b2);
         panel.add(ageChart);
         panel.add(pieChart);
+        panel.add(gradesChart);
         
         
         //Creada a cuantos pixeles debe estar del
@@ -168,7 +218,7 @@ public class Chart extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         System.out.println("...");
     }
-   
+
     public DefaultPieDataset crearDatos() {
         int contadorM = 0;
         int contadorF = 0;
@@ -190,18 +240,18 @@ public class Chart extends JFrame implements ActionListener{
         //System.out.println(alumnos[2].getNombre()+alumnos[0].getNombre());
         return datos;
 
-   }
-    
+    }
+
     public DefaultCategoryDataset setEdades() {
         _datos = new DefaultCategoryDataset();
 
         int contador10 = 0, contador20 = 0, contador30 = 0, contador40 = 0, contador50 = 0, contador60 = 0, contador70 = 0, contador80 = 0, contador90 = 0, contador100 = 0;
         int[] contador = new int[10];
         System.out.println(alumnos.length);
-        
+
         for (Alumno alumno : alumnos) {
             System.out.println("entra");
-            
+
             if (alumno.getAge() < 10) {
                 contador10++;
             }
@@ -233,7 +283,7 @@ public class Chart extends JFrame implements ActionListener{
                 contador100++;
             }
         }
-        
+
         contador[0] = contador10;
         contador[1] = contador20;
         contador[2] = contador30;
@@ -244,10 +294,7 @@ public class Chart extends JFrame implements ActionListener{
         contador[7] = contador80;
         contador[8] = contador90;
         contador[9] = contador100;
-        
-        
-        
-        
+
         //Adding values to the fucking DataSet
         if (contador10 != 0) {
             _datos.addValue(contador10, "Edades", "10");
@@ -280,6 +327,11 @@ public class Chart extends JFrame implements ActionListener{
             _datos.addValue(contador100, "Edades", "100");
         }
 
+        datosHilos = contador;
         return _datos;
+    }
+
+    public DefaultCategoryDataset setNotas() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
