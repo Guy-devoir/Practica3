@@ -30,7 +30,8 @@ public class Chart extends JFrame implements ActionListener{
     private Curso[] cursos;
     
     public Chart(Alumno[] alumnos, Curso[] cursos) {
-        /*this.storage = new Almacenamiento(alumnos,cursos);
+        /*
+        this.storage = new Almacenamiento(alumnos,cursos);
         this.alumnos =  storage.getArregloAlumno();
         */
         this.alumnos[0] = new Alumno(1, 201800632,"Luciano", true, "02/14/2021", 50);
@@ -152,6 +153,7 @@ public class Chart extends JFrame implements ActionListener{
         panel.add(b1);
         panel.add(b2);
         panel.add(ageChart);
+        panel.add(pieChart);
         
         
         //Creada a cuantos pixeles debe estar del
@@ -194,13 +196,12 @@ public class Chart extends JFrame implements ActionListener{
         _datos = new DefaultCategoryDataset();
 
         int contador10 = 0, contador20 = 0, contador30 = 0, contador40 = 0, contador50 = 0, contador60 = 0, contador70 = 0, contador80 = 0, contador90 = 0, contador100 = 0;
-
+        int[] contador = new int[10];
         System.out.println(alumnos.length);
-        for (int i = 0; i < alumnos.length; i++) {
-
-        }
+        
         for (Alumno alumno : alumnos) {
             System.out.println("entra");
+            
             if (alumno.getAge() < 10) {
                 contador10++;
             }
@@ -232,6 +233,21 @@ public class Chart extends JFrame implements ActionListener{
                 contador100++;
             }
         }
+        
+        contador[0] = contador10;
+        contador[1] = contador20;
+        contador[2] = contador30;
+        contador[3] = contador40;
+        contador[4] = contador50;
+        contador[5] = contador60;
+        contador[6] = contador70;
+        contador[7] = contador80;
+        contador[8] = contador90;
+        contador[9] = contador100;
+        
+        
+        
+        
         //Adding values to the fucking DataSet
         if (contador10 != 0) {
             _datos.addValue(contador10, "Edades", "10");
@@ -263,6 +279,7 @@ public class Chart extends JFrame implements ActionListener{
         if (contador100 != 0) {
             _datos.addValue(contador100, "Edades", "100");
         }
+
         return _datos;
     }
 }
